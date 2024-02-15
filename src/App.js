@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./components/pages/Home";
+import Contact from "./components/pages/Contact";
+import About from "./components/pages/About";
+import Post from "./components/pages/Post";
+import PostLayout from "./components/PostLayout";
+import Layout from "./components/Layout";
+import PostDetail from "./components/pages/PostDetail";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route path='about' element={<About />} />
+            <Route path='contact' element={<Contact />} />
+            <Route path='post' element={<PostLayout />}>
+              <Route path=":category" element={<PostDetail />} />
+              <Route index element={<Post />} /> 
+              </Route>
+            <Route index element={<Home />} />
+          </Route>
+          <Route path="*" element={<h1>Error 404 page not Found</h1>} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
